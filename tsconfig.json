@@ -1,0 +1,27 @@
+{
+    "exclude": ["node_modules", "public"],
+    "include": [
+    "resources/**/*.ts",
+    "resources/**/*.d.ts",
+    "resources/**/*.vue",
+    "vite.config.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["resources/js/*"]
+    },
+    "types": ["vite/client","element-plus/global","unplugin-vue-define-options/macros-global","@types/ziggy-js"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": false,
+    "lib": ["esnext", "dom"],
+    "target": "ESNext",
+    "typeRoots": ["./node_modules/@types", "resources/js/types"],
+  }
+  }
