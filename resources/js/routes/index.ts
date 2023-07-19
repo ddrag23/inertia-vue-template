@@ -15,7 +15,7 @@ const routes: MenuRoutes[] = [
     },
     {
         title: "User",
-        route: route("user"),
+        route: route("user.index"),
         icon: "fa-solid fa-users",
         current: "/user",
     },

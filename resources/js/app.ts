@@ -6,6 +6,7 @@ import "element-plus/dist/index.css";
 import "./bootstrap";
 import fontAwesome from "./font-awesome";
 import ziggy from "ziggy-js";
+import "devextreme/dist/css/dx.light.css";
 /* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 createInertiaApp({

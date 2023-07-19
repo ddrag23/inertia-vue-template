@@ -22,4 +22,14 @@ export default defineConfig({
             resolvers: [ElementPlusResolver()],
         }),
     ],
+    resolve: {
+        alias: {
+            "devextreme/ui": "devextreme/esm/ui",
+        },
+    },
+    build: {
+        rollupOptions: {
+            treeshake: false,
+        },
+    },
 });

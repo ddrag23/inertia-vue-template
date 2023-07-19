@@ -16,4 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
-Route::get('/user', [UserController::class, 'index'])->name('user');
+Route::prefix('user')->name('user.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/builder', [UserController::class, 'builder'])->name('builder');
+});
