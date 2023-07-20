@@ -11,7 +11,7 @@ router.on("navigate", (e: any) => {
 </script>
 <template>
     <div
-        class="absolute md:static w-2/3 md:w-1/4 bg-white h-screen p-5 border-r"
+        class="absolute z-10 md:static w-2/3 md:w-1/4 bg-white h-screen p-5 border-r"
     >
         <div class="flex justify-between">
             <h1 class="text-2xl">
