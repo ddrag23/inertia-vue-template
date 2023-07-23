@@ -1,11 +1,32 @@
 <script setup lang="ts">
 import Card from "@/components/Card.vue";
 import { reactive } from "vue";
-import { ElInput, ElForm, ElFormItem } from "element-plus";
+import {
+    ElInput,
+    ElForm,
+    ElFormItem,
+    ElButton,
+    ElNotification,
+} from "element-plus";
+import { router } from "@inertiajs/vue3";
+import route from "ziggy-js";
+
+defineProps<{ errors: Object }>();
 const formData = reactive({
     email: "",
     password: "",
 });
+function submit() {
+    router.post(route("auth.login.post"), formData, {
+        onError: (err) =>
+            ElNotification({
+                title: "Error",
+                message: err.error,
+                type: "error",
+            }),
+    });
+}
+router.on("error", (err) => console.error(err));
 </script>
 <template>
     <div class="flex justify-center items-center w-full h-screen bg-gray-400">
@@ -34,7 +55,11 @@ const formData = reactive({
                     />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" class="w-full" size="large"
+                    <el-button
+                        @click="submit"
+                        type="primary"
+                        class="w-full"
+                        size="large"
                         >Login</el-button
                     >
                 </el-form-item>

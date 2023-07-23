@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { vOnClickOutside } from "@vueuse/components";
 import { useToggle } from "@vueuse/core";
+import route from "ziggy-js";
 const avatarDropdown = ref<boolean>();
 function toggleAvatar(): void {
     avatarDropdown.value = !avatarDropdown.value;
@@ -49,15 +50,15 @@ const [value, toggle] = useToggle();
                     </span>
                     Profile
                 </Link>
-                <a
+                <Link
                     class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                    href="#"
+                    :href="route('auth.logout')"
                 >
                     <span class="mr-1">
                         <awesome icon="fa-solid fa-right-from-bracket" />
                     </span>
                     Logout
-                </a>
+                </Link>
             </div>
         </div>
     </div>
