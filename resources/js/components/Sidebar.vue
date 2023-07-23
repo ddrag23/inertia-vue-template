@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import MenuItem from "./MenuItem.vue";
-import route from "ziggy-js";
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import menuRoutes from "@/routes";
