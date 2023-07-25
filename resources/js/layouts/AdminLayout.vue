@@ -20,7 +20,7 @@ function closeSidebar(value: boolean) {
         />
         <div class="w-full">
             <Navbar @toggleSidebar="toggleSidebar" />
-            <div class="px-8 pt-5 w-full bg-[#B5C2CA] h-screen">
+            <div class="px-5 md:px-8 pt-5 w-full bg-[#B5C2CA] h-screen">
                 <slot />
             </div>
         </div>

@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import Layout from "@/layouts/AdminLayout.vue";
 import Card from "@/components/Card.vue";
-import { ElButton, ElDialog, ElNotification } from "element-plus";
+import {
+    ElButton,
+    ElDialog,
+    ElNotification,
+    ElMessage,
+    ElMessageBox,
+} from "element-plus";
 import {
     DxDataGrid,
     DxColumn,
@@ -75,78 +81,148 @@ const store = new CustomStore({
 function refreshDataGrid() {
     dx.value.instance.refresh();
 }
+function editData(data: FormDataKelas) {
+    form.id = data.id;
+    form.nama_kelas = data.nama_kelas;
+    dialogVisible.value = true;
+}
+
+function deleteData(id: number) {
+    ElMessageBox.confirm(
+        "Apakah anda yakin menghapus data ini. Lanjutkan?",
+        "Warning",
+        {
+            confirmButtonText: "OK",
+            cancelButtonText: "Cancel",
+            type: "warning",
+        }
+    )
+        .then(() => {
+            router.delete(route("kelas.delete", { id }), {
+                onSuccess: (page: any) => {
+                    ElNotification({
+                        title: "Sukses",
+                        message: page.props.flash.message,
+                        type: "success",
+                    });
+                    refreshDataGrid();
+                    formEl.value.resetFields();
+                    dialogVisible.value = false;
+                },
+                onError: (err) =>
+                    ElNotification({
+                        title: "Error",
+                        message: err.error,
+                        type: "error",
+                    }),
+            });
+        })
+        .catch(() => {
+            ElMessage({
+                type: "info",
+                message: "Delete canceled",
+            });
+        });
+}
 async function submit() {
     if (!formEl) return;
     await formEl.value.validate((valid: boolean) => {
         if (valid) {
-            router.post(
-                form.id
-                    ? route("kelas.update", { id: form.id })
-                    : route("kelas.store"),
-                form,
-                {
-                    onSuccess: (page) => {
-                        ElNotification({
-                            title: "Sukses",
-                            message: page.props.flash.message,
-                            type: "success",
-                        });
-                        refreshDataGrid();
-                        formEl.value.resetFields();
-                        dialogVisible.value = false;
-                    },
-                    onError: (err) =>
-                        ElNotification({
-                            title: "Error",
-                            message: err.error,
-                            type: "error",
-                        }),
-                }
-            );
+            const options = {
+                onSuccess: (page: any) => {
+                    ElNotification({
+                        title: "Sukses",
+                        message: page.props.flash.message,
+                        type: "success",
+                    });
+                    refreshDataGrid();
+                    formEl.value.resetFields();
+                    dialogVisible.value = false;
+                },
+                onError: (err) =>
+                    ElNotification({
+                        title: "Error",
+                        message: err.error,
+                        type: "error",
+                    }),
+            };
+            if (form.id) {
+                router.put(
+                    route("kelas.update", { id: form.id }),
+                    form,
+                    options
+                );
+            } else {
+                router.post(route("kelas.store"), form, options);
+            }
         }
     });
 }
 </script>
 <template>
     <card header-title="Data Kelas">
-        <DxDataGrid
-            :data-source="store"
-            :show-borders="true"
-            :remote-operations="true"
-            ref="dx"
-        >
-            <DxColumn data-field="nama_kelas" data-type="string" />
-            <DxColumn
-                data-field="id"
-                data-type="number"
-                caption="Aksi"
-                cell-template="action"
-            />
-            <template #action="{ data }">
-                <ElButton color="#626aef">Edit</ElButton>
-                <ElButton type="danger">Hapus</ElButton>
-            </template>
-            <DxPaging :page-size="10" />
-            <DxPager
-                :show-page-size-selector="true"
-                :allowed-page-sizes="[5, 10, 20]"
-                :show-info="true"
-                :show-navigation-buttons="true"
-                :visible="true"
-            />
-            <DxToolbar>
-                <DxItem location="before" template="addButton" />
-                <DxItem location="after" template="refreshTemplate" />
-            </DxToolbar>
-            <template #addButton>
-                <ElButton type="primary" @click="() => (dialogVisible = true)"
-                    ><awesome icon="fa-solid fa-plus" />&nbsp;Tambah</ElButton
-                >
-            </template>
-            <template #refreshTemplate>
-                <DxButton icon="refresh" @click="refreshDataGrid" />
-            </template>
-        </DxDataGrid>
+        <div class="w-screen md:w-full">
+            <DxDataGrid
+                :data-source="store"
+                :show-borders="true"
+                :remote-operations="true"
+                ref="dx"
+            >
+                <DxColumn data-field="nama_kelas" data-type="string" />
+                <DxColumn
+                    data-field="id"
+                    data-type="number"
+                    caption="Aksi"
+                    cell-template="action"
+                />
+                <template #action="{ data }">
+                    <ElButton
+                        color="#626aef"
+                        size="small"
+                        @click="editData(data.data)"
+                    >
+                        <span class="mr-1"
+                            ><awesome icon="fa-solid fa-edit"
+                        /></span>
+                        Edit
+                    </ElButton>
+                    <ElButton
+                        type="danger"
+                        size="small"
+                        @click="deleteData(data.data.id)"
+                    >
+                        <span class="mr-1"
+                            ><awesome icon="fa-solid fa-trash"
+                        /></span>
+                        Hapus
+                    </ElButton>
+                </template>
+                <DxPaging :page-size="10" />
+                <DxPager
+                    :show-page-size-selector="true"
+                    :allowed-page-sizes="[5, 10, 20]"
+                    :show-info="true"
+                    :show-navigation-buttons="true"
+                    :visible="true"
+                />
+                <DxToolbar>
+                    <DxItem location="before" template="addButton" />
+                    <DxItem location="after" template="refreshTemplate" />
+                </DxToolbar>
+                <template #addButton>
+                    <ElButton
+                        type="primary"
+                        @click="() => (dialogVisible = true)"
+                        ><awesome
+                            icon="fa-solid fa-plus"
+                        />&nbsp;Tambah</ElButton
+                    >
+                </template>
+                <template #refreshTemplate>
+                    <DxButton icon="refresh" @click="refreshDataGrid" />
+                </template>
+            </DxDataGrid>
+        </div>
     </card>
     <el-dialog v-model="dialogVisible" title="Form Data Kelas">
         <el-form

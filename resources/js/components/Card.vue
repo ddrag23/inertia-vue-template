@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<CardProps>(), {
             </div>
         </div>
         <hr />
-        <div class="p-5">
+        <div class="p-5 overflow-x-scroll">
             <slot />
         </div>
     </div>
