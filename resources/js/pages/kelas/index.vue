@@ -22,6 +22,7 @@ import { ref, reactive } from "vue";
 import { router } from "@inertiajs/vue3";
 import route from "ziggy-js";
 import type { FormInstance, FormRules } from "element-plus";
+import { resetForm } from "@/utils/helper";
 export type FormDataKelas = {
     id?: number;
     nama_kelas: string;
@@ -86,7 +87,10 @@ function editData(data: FormDataKelas) {
     form.nama_kelas = data.nama_kelas;
     dialogVisible.value = true;
 }
-
+function showDialog() {
+    resetForm<FormDataKelas>(form);
+    dialogVisible.value = true;
+}
 function deleteData(id: number) {
     ElMessageBox.confirm(
         "Apakah anda yakin menghapus data ini. Lanjutkan?",
@@ -210,9 +214,7 @@ async function submit() {
                     <DxItem location="after" template="refreshTemplate" />
                 </DxToolbar>
                 <template #addButton>
-                    <ElButton
-                        type="primary"
-                        @click="() => (dialogVisible = true)"
+                    <ElButton type="primary" @click="showDialog"
                         ><awesome
                             icon="fa-solid fa-plus"
                         />&nbsp;Tambah</ElButton
