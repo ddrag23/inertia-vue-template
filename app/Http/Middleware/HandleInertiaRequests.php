@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
                 ? array_merge(collect($request->user()->only('id', 'name', 'email'))->toArray(), ["roles" => auth()->user()->getRoleNames()])
                 : null,
             'flash' => [
-                'message' => fn () => $request->session()->get('message')
+                'message' => fn () => session()->get('message')
             ],
         ]);
     }

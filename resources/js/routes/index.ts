@@ -14,6 +14,12 @@ const routes: MenuRoutes[] = [
         current: "/",
     },
     {
+        title: "Kelas",
+        route: route("kelas.index"),
+        icon: "fa-solid fa-warehouse",
+        current: "/kelas",
+    },
+    {
         title: "User",
         route: route("user.index"),
         icon: "fa-solid fa-users",

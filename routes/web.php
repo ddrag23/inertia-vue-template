@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/builder', [UserController::class, 'builder'])->name('builder');
+    });
+    Route::prefix('kelas')->name('kelas.')->group(function () {
+        Route::get('/', [KelasController::class, 'index'])->name('index');
+        Route::get('/builder', [KelasController::class, 'builder'])->name('builder');
+        Route::post('/store', [KelasController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [KelasController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [KelasController::class, 'destroy'])->name('delete');
     });
 });

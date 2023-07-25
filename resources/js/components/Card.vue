@@ -4,15 +4,17 @@ type CardProps = {
     headerTitle?: string;
     isHeader?: boolean;
     isToolbar?: boolean;
+    class?: string;
 };
 const props = withDefaults(defineProps<CardProps>(), {
     headerTitle: "Card Title",
     isHeader: true,
     isToolbar: false,
+    class: "",
 });
 </script>
 <template>
-    <div class="bg-white shadow-black rounded-lg w-full">
+    <div class="bg-white shadow-black rounded-lg w-full" :class="class">
         <div
             class="flex justify-between w-full items-center px-5 h-12"
             v-if="props.isHeader"

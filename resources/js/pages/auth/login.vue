@@ -30,7 +30,7 @@ router.on("error", (err) => console.error(err));
 </script>
 <template>
     <div class="flex justify-center items-center w-full h-screen bg-gray-400">
-        <Card :is-header="false" class="w-[26rem]">
+        <Card :is-header="false" class="md:w-[26em] mx-5">
             <p class="text-xl">Welcome To MyAdmin</p>
             <hr class="my-3" />
             <el-form

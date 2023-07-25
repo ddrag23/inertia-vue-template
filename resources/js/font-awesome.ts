@@ -8,6 +8,8 @@ import {
     faRightFromBracket,
     faBars,
     faCircleXmark,
+    faWarehouse,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default () => {
@@ -22,6 +24,8 @@ export default () => {
         faUser,
         faRightFromBracket,
         faBars,
-        faCircleXmark
+        faCircleXmark,
+        faWarehouse,
+        faPlus
     );
 };
