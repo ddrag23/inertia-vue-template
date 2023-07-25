@@ -20,6 +20,12 @@ const routes: MenuRoutes[] = [
         current: "/kelas",
     },
     {
+        title: "Tahun Ajaran",
+        route: route("tahun-ajaran.index"),
+        icon: "fa-solid fa-calendar",
+        current: "/tahun-ajaran",
+    },
+    {
         title: "User",
         route: route("user.index"),
         icon: "fa-solid fa-users",

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tahun_ajarans', function (Blueprint $table) {
             $table->id();
             $table->string('tahun_ajaran');
+            $table->boolean('is_aktif')->default(false);
             $table->timestamps();
         });
     }
