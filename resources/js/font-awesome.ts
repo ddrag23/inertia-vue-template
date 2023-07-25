@@ -10,6 +10,8 @@ import {
     faCircleXmark,
     faWarehouse,
     faPlus,
+    faEdit,
+    faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default () => {
@@ -26,6 +28,8 @@ export default () => {
         faBars,
         faCircleXmark,
         faWarehouse,
-        faPlus
+        faPlus,
+        faEdit,
+        faTrash
     );
 };
