@@ -12,6 +12,7 @@ import {
     faPlus,
     faEdit,
     faTrash,
+    faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default () => {
@@ -30,6 +31,7 @@ export default () => {
         faWarehouse,
         faPlus,
         faEdit,
-        faTrash
+        faTrash,
+        faCalendar
     );
 };
